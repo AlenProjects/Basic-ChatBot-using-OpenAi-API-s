@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Chatbot</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg-color: #1e1e2f;
+      --text-color: #ffffff;
+      --sidebar-width: 250px;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      background-color: #2c2c3c;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      transition: width 0.3s;
+    }
+
+    .sidebar.collapsed {
+      width: 0;
+      overflow: hidden;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .sidebar-toggle-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .hamburger-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: #28283c;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .theme-toggle {
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .chat-box {
+      flex: 1;
+      margin: 0 20px;
+      background-color: #2f2f45;
+      border-radius: 10px;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 12px;
+      background-color: #1e1e2f;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      margin-right: 10px;
+    }
+
+    .chat-input button {
+      padding: 10px 16px;
+      background-color: #5a54ea;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button id="hamburgerToggle" class="hamburger-btn" style="display: none">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span><i class="fa-solid fa-folder"></i> Chats</span>
+      <button id="sidebarToggle" class="sidebar-toggle-btn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <button style="margin: 10px">+ New</button>
+    <input type="text" placeholder="Search..." style="margin: 10px; padding: 8px; border-radius: 6px; border: none; width: calc(100% - 20px)" />
+    <ul style="padding-left: 20px">
+      <li><i class="fa-regular fa-file"></i> Chat 1</li>
+      <li><i class="fa-regular fa-file"></i> Chat 2</li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <h1><i class="fa-solid fa-robot"></i> AI Chatbot</h1>
+      <div class="theme-toggle" id="themeToggle">
+        <i class="fa-solid fa-moon"></i>
+      </div>
+    </div>
+    <div class="chat-box" id="chatBox"></div>
+    <div class="chat-input">
+      <input type="text" placeholder="Ask me anything..." id="chatInput" />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const hamburgerToggle = document.getElementById("hamburgerToggle");
+    const sendBtn = document.getElementById("sendBtn");
+    const chatInput = document.getElementById("chatInput");
+    const chatBox = document.getElementById("chatBox");
+
+    sidebarToggle.addEventListener("click", () => {
+      sidebar.classList.add("collapsed");
+      hamburgerToggle.style.display = "block";
+      localStorage.setItem("sidebarCollapsed", "true");
+    });
+
+    hamburgerToggle.addEventListener("click", () => {
+      sidebar.classList.remove("collapsed");
+      hamburgerToggle.style.display = "none";
+      localStorage.setItem("sidebarCollapsed", "false");
+    });
+
+    if (localStorage.getItem("sidebarCollapsed") === "true") {
+      sidebar.classList.add("collapsed");
+      hamburgerToggle.style.display = "block";
+    }
+
+    sendBtn.addEventListener("click", () => {
+      const text = chatInput.value.trim();
+      if (text) {
+        const msg = document.createElement("p");
+        msg.textContent = text;
+        msg.style.padding = "10px";
+        chatBox.appendChild(msg);
+        chatInput.value = "";
+      }
+    });
+
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+    });
+  </script>
+</body>
+</html>

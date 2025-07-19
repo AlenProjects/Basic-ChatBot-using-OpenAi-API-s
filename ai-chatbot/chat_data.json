@@ -1,0 +1,19 @@
+{
+  "12185467-d1d8-4180-920f-ddb02dcbeffa": {
+    "title": "Chat 1",
+    "history": [
+      {
+        "role": "user",
+        "content": "hey"
+      },
+      {
+        "role": "assistant",
+        "content": "Echo: hey"
+      }
+    ]
+  },
+  "39f0109f-115c-4672-ac32-965608ea5432": {
+    "title": "Chat 2",
+    "history": []
+  }
+}

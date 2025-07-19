@@ -1,0 +1,13 @@
+{
+  "title": "Chat 1",
+  "history": [
+    {
+      "role": "user",
+      "content": "hey"
+    },
+    {
+      "role": "assistant",
+      "content": "Echo: hey"
+    }
+  ]
+}
